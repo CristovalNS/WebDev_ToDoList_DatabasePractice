@@ -67,13 +67,20 @@ def read_tasks(user_id: str):
 def update_task(task_id: int, task: Task):
     cursor = connection.cursor()
 
-    cursor.execute("SELECT title FROM tasks WHERE id = %s AND user_id = %s", (task_id, task.user_id))
-    current_title = cursor.fetchone()
+    cursor.execute("SELECT title, isCompleted FROM tasks WHERE id = %s AND user_id = %s", (task_id, task.user_id))
+    current_task = cursor.fetchone()
 
-    if current_title:
-        current_title = current_title[0]
+    if current_task:
+        current_title, current_is_completed = current_task
         if current_title == task.title:
-            cursor.execute("UPDATE tasks SET isCompleted = %s WHERE id = %s AND user_id = %s", (task.isCompleted, task_id, task.user_id))
+            # Toggle the value of isCompleted between 0 and 1
+            # new_is_completed = 0 if current_is_completed == 1 else 1
+            if current_is_completed == 0:
+                new_is_completed = 1
+                cursor.execute("UPDATE tasks SET isCompleted = %s WHERE id = %s AND user_id = %s", (new_is_completed, task_id, task.user_id))
+            else: 
+                new_is_completed = 0
+                cursor.execute("UPDATE tasks SET isCompleted = %s WHERE id = %s AND user_id = %s", (new_is_completed, task_id, task.user_id))
         else:
             cursor.execute("UPDATE tasks SET title = %s, isCompleted = %s WHERE id = %s AND user_id = %s", (task.title, task.isCompleted, task_id, task.user_id))
         connection.commit()
@@ -81,6 +88,7 @@ def update_task(task_id: int, task: Task):
         return {"message": "Task updated successfully"}
     else:
         raise HTTPException(status_code=404, detail="Task not found")
+
 
 # DELETE
 @app.delete("/tasks/{task_id}/{user_id}")

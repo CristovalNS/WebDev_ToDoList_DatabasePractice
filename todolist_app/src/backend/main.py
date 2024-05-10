@@ -34,6 +34,7 @@ connection = create_server_connection("127.0.0.1", "root", "*neoSQL01", "todolis
 class Task(BaseModel):
     user_id: str
     title: str
+    isCompleted: bool
 
 # CREATE
 @app.post("/tasks/")
@@ -65,10 +66,21 @@ def read_tasks(user_id: str):
 @app.put("/tasks/{task_id}")
 def update_task(task_id: int, task: Task):
     cursor = connection.cursor()
-    cursor.execute("UPDATE tasks SET title = %s WHERE id = %s AND user_id = %s", (task.title, task_id, task.user_id))
-    connection.commit()
-    cursor.close()
-    return {"message": "Task updated successfully"}
+
+    cursor.execute("SELECT title FROM tasks WHERE id = %s AND user_id = %s", (task_id, task.user_id))
+    current_title = cursor.fetchone()
+
+    if current_title:
+        current_title = current_title[0]
+        if current_title == task.title:
+            cursor.execute("UPDATE tasks SET isCompleted = %s WHERE id = %s AND user_id = %s", (task.isCompleted, task_id, task.user_id))
+        else:
+            cursor.execute("UPDATE tasks SET title = %s, isCompleted = %s WHERE id = %s AND user_id = %s", (task.title, task.isCompleted, task_id, task.user_id))
+        connection.commit()
+        cursor.close()
+        return {"message": "Task updated successfully"}
+    else:
+        raise HTTPException(status_code=404, detail="Task not found")
 
 # DELETE
 @app.delete("/tasks/{task_id}/{user_id}")

@@ -1,0 +1,72 @@
+.header {
+    background: #0D0D0D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    position: relative;
+  }
+
+  .userInfoWrapper {
+    position: absolute;
+    top: 100%; 
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 50px; 
+  }
+  
+  .addTask {
+    position: absolute;
+    height: 54px;
+    bottom: -27px;
+    width: 100%;
+    max-width: 736px;
+    display: flex;
+    gap: 8px;
+    padding: 0 1rem;
+  }
+  
+  .addTask input {
+    height: 100%;
+    flex: 1;
+    color: #fff;
+    background: #262626;
+    border: 1px solid #0D0D0D;
+    border-radius: 8px;
+    padding: 0 16px;
+    font-size: 16px;
+  }
+  
+  .addTask input::placeholder {
+    color: #808080;
+  }
+  
+  .addTask button {
+    height: 100%;
+    padding: 0 16px;
+    background: #1E6F9F;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .userInfo {
+    color: white;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .logoutButton {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }

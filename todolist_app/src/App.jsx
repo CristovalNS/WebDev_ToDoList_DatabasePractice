@@ -110,10 +110,10 @@ useEffect(() => {
         <>
           <Header handleAddTask={handleAddTask} />
           <Tasks tasks={tasks} setTasks={setTasks} onDelete={onDelete} onUpdate={onUpdate} onComplete={(taskId) => onComplete(taskId, {isCompleted: true})} />
-          <div>
+          {/* <div>
             <p>Logged in as {userEmail}</p>
             <button onClick={() => auth.signOut()}>Log Out</button>
-          </div>
+          </div> */}
         </>
       )}
     </>

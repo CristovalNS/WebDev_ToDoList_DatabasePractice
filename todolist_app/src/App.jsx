@@ -36,13 +36,38 @@ const fetchTasks = (userId) => {
     .catch(error => console.error('Error fetching tasks:', error));
 };
 
-// UPDATE
-const onUpdate = (taskId, updatedFields) => {
+// UPDATE - onComplete
+const onComplete = (taskId) => {
   if (!userId) return;
-  axios.put(`http://localhost:8000/tasks/${taskId}`, { title: tasks.find(task => task.id === taskId).title, ...updatedFields, user_id: userId })
-    .then(() => setTasks(tasks.map(task => task.id === taskId ? { ...task, ...updatedFields } : task)))
+  const updatedTasks = tasks.map(task => {
+    if (task.id === taskId) {
+      return { ...task, isCompleted: !task.isCompleted };
+    }
+    return task;
+  });
+  setTasks(updatedTasks);
+  axios.put(`http://localhost:8000/tasks/${taskId}`, { ...updatedTasks.find(task => task.id === taskId), user_id: userId })
     .catch(error => console.error('Error updating task:', error));
 };
+
+// UPDATE - updating task information
+const onUpdate = (taskId, updatedFields) => {
+  if (!userId) return;
+  const updatedTasks = tasks.map(task => {
+    if (task.id === taskId) {
+      return { ...task, ...updatedFields };
+    }
+    return task;
+  });
+  setTasks(updatedTasks);
+
+  axios.put(`http://localhost:8000/tasks/${taskId}`, { ...updatedFields, user_id: userId })
+    .then(response => {
+      console.log('Task updated successfully:', response.data);
+    })
+    .catch(error => console.error('Error updating task:', error));
+};
+
 
 // DELETE
 const onDelete = (taskId) => {
@@ -85,7 +110,7 @@ useEffect(() => {
       ) : (
         <>
           <Header handleAddTask={handleAddTask} />
-          <Tasks tasks={tasks} setTasks={setTasks} onDelete={onDelete} onUpdate={onUpdate} onComplete={(taskId) => onUpdate(taskId, {isCompleted: true})} />
+          <Tasks tasks={tasks} setTasks={setTasks} onDelete={onDelete} onUpdate={onUpdate} onComplete={(taskId) => onComplete(taskId, {isCompleted: true})} />
           <div>
             <p>Logged in as {userEmail}</p>
             <button onClick={() => auth.signOut()}>Log Out</button>

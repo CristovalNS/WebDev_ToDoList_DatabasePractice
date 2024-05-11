@@ -1,20 +1,32 @@
-/* Apply to the whole login container */
+
 .login-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #191919; /* Light gray background */
-    color: #ffffff; /* Dark text for contrast */
+    background-color: #191919; 
+    color: #ffffff; 
     font-family: 'Arial', sans-serif;
   }
   
-  /* Style for all forms in the login container */
+  .checkbox-label {
+    margin-left: 5px; 
+}
+
+  .checkbox-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    margin-bottom: 10px; 
+  }
+
+
+
   .login-container form {
     display: flex;
     flex-direction: column;
-    width: 300px; /* Adjust width as needed */
+    width: 300px; 
     padding: 40px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     background-color: #333;
@@ -22,17 +34,17 @@
     margin-bottom: 20px;
   }
   
-  /* Style for input fields */
+
   .login-container input[type=email],
   .login-container input[type=password] {
     padding: 10px;
-    margin-bottom: 20px; /* Space between inputs */
-    border: 1px solid #ddd; /* Light border */
+    margin-bottom: 20px; 
+    border: 1px solid #ddd; 
     border-radius: 4px;
     font-size: 16px;
   }
   
-  /* Hover and focus states for inputs */
+ 
   .login-container input[type=email]:hover,
   .login-container input[type=password]:hover,
   .login-container input[type=email]:focus,
@@ -40,11 +52,11 @@
     border-color: #999;
   }
   
-  /* Style for buttons */
+  
   .login-container button {
     padding: 10px;
     color: white;
-    background-color: #1E6F9F; /* Google blue */
+    background-color: #1E6F9F; 
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -52,14 +64,12 @@
     font-weight: bold;
     margin-bottom: 10px;
   }
-  
-  /* Hover and focus states for buttons */
+
   .login-container button:hover,
   .login-container button:focus {
-    background-color: rgb(80, 139, 178); /* A darker shade of blue */
+    background-color: rgb(80, 139, 178); 
   }
   
-  /* Headings */
   .login-container h1 {
     font-size: 24px;
     text-align: center;

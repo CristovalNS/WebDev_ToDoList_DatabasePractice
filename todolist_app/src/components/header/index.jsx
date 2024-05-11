@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { auth } from "../../backend/firebase_config/firebase.js"; 
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import UserProfile from './user_profile/user_profile';
+import Cookies from 'js-cookie';
 
 export function Header({ handleAddTask, userEmail, handleLogout }) { 
   const [title, setTitle] = useState('');
@@ -38,11 +39,13 @@ export function Header({ handleAddTask, userEmail, handleLogout }) {
   function handleLogoutWrapper() {
     signOut(auth).then(() => {
       console.log("Logout successful");
-      handleLogout(); // Directly call handleLogout received as a prop
+      Cookies.set('persistentLogin', false, { expires: 7 });
+      handleLogout(); 
     }).catch((error) => {
       console.error("Logout error", error);
     });
   }
+  
 
   function handleSubmit(event) {
     event.preventDefault();

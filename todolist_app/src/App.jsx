@@ -47,7 +47,7 @@ const onComplete = (taskId) => {
   });
   setTasks(updatedTasks);
   axios.put(`http://localhost:8000/tasks/${taskId}`, { ...updatedTasks.find(task => task.id === taskId), user_id: userId })
-    .catch(error => console.error('Error updating task:', error));
+    .catch(error => console.error('Error completing task:', error));
 };
 
 // UPDATE - updating task information
@@ -60,7 +60,6 @@ const onUpdate = (taskId, updatedFields) => {
     return task;
   });
   setTasks(updatedTasks);
-
   axios.put(`http://localhost:8000/tasks/${taskId}`, { ...updatedFields, user_id: userId })
     .then(response => {
       console.log('Task updated successfully:', response.data);

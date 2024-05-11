@@ -74,6 +74,7 @@ def update_task(task_id: int, task: Task):
         current_title, current_is_completed = current_task
         if current_title == task.title:
             # Toggle the value of isCompleted between 0 and 1
+            # new_is_completed = 0 if current_is_completed == 1 else 1
             if current_is_completed == 0:
                 new_is_completed = 1
                 cursor.execute("UPDATE tasks SET isCompleted = %s WHERE id = %s AND user_id = %s", (new_is_completed, task_id, task.user_id))

@@ -2,7 +2,7 @@ import { FaPlusCircle, FaSignOutAlt } from "react-icons/fa";
 import todoLogo from '../../assets/todoLogo.svg';
 import styles from './header.module.css';
 import { useState, useEffect } from 'react';
-import { auth } from "../../backend/firebase_config/firebase.js"; 
+import { auth } from "../../../../backend/firebase_config/firebase.js"; 
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import UserProfile from './user_profile/user_profile';
 import Cookies from 'js-cookie';

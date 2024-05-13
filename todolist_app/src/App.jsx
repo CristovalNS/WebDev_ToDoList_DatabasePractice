@@ -7,6 +7,9 @@ import { Tasks } from './components/tasks';
 import { auth } from '../../backend/firebase_config/firebase'; 
 import { onAuthStateChanged } from 'firebase/auth';
 
+// Define the base URL for API calls
+const API_BASE_URL = 'http://13.236.191.132';
+
 function App() {
   const [tasks, setTasks] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -24,14 +27,14 @@ function App() {
 // CREATE
 const handleAddTask = (newTitle) => {
   if (!userId) return;
-  axios.post('http://localhost:8000/tasks/', { title: newTitle, isCompleted: false, user_id: userId })
+  axios.post(`${API_BASE_URL}/tasks/`, { title: newTitle, isCompleted: false, user_id: userId })
     .then(response => setTasks(prevTasks => [...prevTasks, response.data]))
     .catch(error => console.error('Error adding task:', error));
 };
 
 // READ
 const fetchTasks = (userId) => {
-  axios.get(`http://localhost:8000/tasks/${userId}`)
+  axios.get(`${API_BASE_URL}/tasks/${userId}`)
     .then(response => setTasks(response.data))
     .catch(error => console.error('Error fetching tasks:', error));
 };
@@ -46,7 +49,7 @@ const onComplete = (taskId) => {
     return task;
   });
   setTasks(updatedTasks);
-  axios.put(`http://localhost:8000/tasks/${taskId}`, { ...updatedTasks.find(task => task.id === taskId), user_id: userId })
+  axios.put(`${API_BASE_URL}/tasks/${taskId}`, { ...updatedTasks.find(task => task.id === taskId), user_id: userId })
     .catch(error => console.error('Error completing task:', error));
 };
 
@@ -60,7 +63,7 @@ const onUpdate = (taskId, updatedFields) => {
     return task;
   });
   setTasks(updatedTasks);
-  axios.put(`http://localhost:8000/tasks/${taskId}`, { ...updatedFields, user_id: userId })
+  axios.put(`${API_BASE_URL}/tasks/${taskId}`, { ...updatedFields, user_id: userId })
     .then(response => {
       console.log('Task updated successfully:', response.data);
     })
@@ -71,7 +74,7 @@ const onUpdate = (taskId, updatedFields) => {
 // DELETE
 const onDelete = (taskId) => {
   if (!userId) return;
-  axios.delete(`http://localhost:8000/tasks/${taskId}/${userId}`)
+  axios.delete(`${API_BASE_URL}/tasks/${taskId}/${userId}`)
     .then(() => setTasks(tasks.filter(task => task.id !== taskId)))
     .catch(error => console.error('Error deleting task:', error));
 };

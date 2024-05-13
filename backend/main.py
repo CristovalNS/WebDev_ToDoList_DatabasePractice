@@ -8,7 +8,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"], 
+    allow_origins=["http://localhost:5173", "http://13.236.191.132"], 
     allow_credentials=True,
     allow_methods=["*"],  
     allow_headers=["*"],  
@@ -29,7 +29,7 @@ def create_server_connection(host_name, user_name, user_password, db_name):
 
     return connection
 
-connection = create_server_connection("127.0.0.1", "root", "*neoSQL01", "todolist")
+connection = create_server_connection("todolist.crmwm0ym25mw.ap-southeast-2.rds.amazonaws.com", "admin", "*neoSQL01", "todolist")
 
 class Task(BaseModel):
     user_id: str

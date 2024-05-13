@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { auth } from '../../../../../backend/firebase_config/firebase.js';
+import { auth } from '../../../../firebase_config/firebase.js';
 import { setPersistence, browserLocalPersistence, browserSessionPersistence } from 'firebase/auth';
 import Cookies from 'js-cookie';
 import styles from '../user_profile/userprofile.module.css';

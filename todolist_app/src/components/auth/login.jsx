@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { auth } from '../../../../backend/firebase_config/firebase';
+import { auth } from '../../../firebase_config/firebase';
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,

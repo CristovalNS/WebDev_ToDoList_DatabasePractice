@@ -4,7 +4,7 @@ import LogIn from './components/auth/login';
 import Register from './components/auth/register'; 
 import { Header } from './components/header';
 import { Tasks } from './components/tasks'; 
-import { auth } from '../../backend/firebase_config/firebase'; 
+import { auth } from '../firebase_config/firebase'; 
 import { onAuthStateChanged } from 'firebase/auth';
 
 // Define the base URL for API calls

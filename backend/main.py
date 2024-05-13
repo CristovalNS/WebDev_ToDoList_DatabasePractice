@@ -6,13 +6,18 @@ from mysql.connector import Error
 
 app = FastAPI()
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://13.236.191.132"], 
+    allow_origins=[
+        "http://13.236.191.132"  # Adjusted for the frontend IP or domain
+    ],
     allow_credentials=True,
-    allow_methods=["*"],  
-    allow_headers=["*"],  
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
 
 def create_server_connection(host_name, user_name, user_password, db_name):
     connection = None
